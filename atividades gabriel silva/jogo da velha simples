@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: 100px 100px 100px;
+            gap: 5px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            font-size: 24px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="board">
+    <div class="cell" onclick="makeMove(this)"></div>
+    <div class="cell" onclick="makeMove(this)"></div>
+    <div class="cell" onclick="makeMove(this)"></div>
+    <div class="cell" onclick="makeMove(this)"></div>
+    <div class="cell" onclick="makeMove(this)"></div>
+    <div class="cell" onclick="makeMove(this)"></div>
+    <div class="cell" onclick="makeMove(this)"></div>
+    <div class="cell" onclick="makeMove(this)"></div>
+    <div class="cell" onclick="makeMove(this)"></div>
+</div>
+
+<script>
+    let currentPlayer = 'X';
+
+    function makeMove(cell) {
+        if(cell.innerHTML === '') {
+            cell.innerHTML = currentPlayer;
+            if(checkWin()) {
+                alert(currentPlayer + ' ganhou!');
+                resetGame();
+            } else if (checkDraw()) {
+                alert('Empate!');
+                resetGame();
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+    }
+
+    function checkWin() {
+        const cells = document.querySelectorAll('.cell');
+        const winConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        for(const condition of winConditions) {
+            if(cells[condition[0]].innerHTML !== '' &&
+               cells[condition[0]].innerHTML === cells[condition[1]].innerHTML &&
+               cells[condition[1]].innerHTML === cells[condition[2]].innerHTML) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function checkDraw() {
+        return [...document.querySelectorAll('.cell')].every(cell => cell.innerHTML !== '');
+    }
+
+    function resetGame() {
+        currentPlayer = 'X';
+        document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = '');
+    }
+</script>
+
+</body>
+</html>

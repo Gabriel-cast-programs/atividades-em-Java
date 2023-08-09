@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #quiz {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz">
+    <div id="question">Qual é a capital da França?</div>
+    <div class="options">
+        <label><input type="radio" name="answer" value="a"> Londres</label>
+        <label><input type="radio" name="answer" value="b"> Berlim</label>
+        <label><input type="radio" name="answer" value="c"> Paris</label>
+        <label><input type="radio" name="answer" value="d"> Roma</label>
+    </div>
+    <button onclick="checkAnswer()">Verificar Resposta</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function checkAnswer() {
+        const selectedOption = document.querySelector('input[name="answer"]:checked');
+        if (selectedOption) {
+            const result = document.getElementById('result');
+            if (selectedOption.value === 'c') {
+                result.textContent = 'Resposta correta!';
+                result.style.color = 'green';
+            } else {
+                result.textContent = 'Resposta incorreta. Tente novamente.';
+                result.style.color = 'red';
+            }
+        } else {
+            alert('Por favor, selecione uma resposta.');
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <style>
+        #taskList {
+            max-width: 400px;
+            margin: 30px auto;
+        }
+
+        button {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="taskList">
+    <input type="text" id="taskInput" placeholder="Digite sua tarefa aqui">
+    <button onclick="addTask()">Adicionar Tarefa</button>
+    <ul id="list"></ul>
+</div>
+
+<script>
+    function addTask() {
+        const taskInput = document.getElementById('taskInput');
+        const list = document.getElementById('list');
+
+        if (taskInput.value.trim() !== "") {
+            const listItem = document.createElement('li');
+            listItem.textContent = taskInput.value;
+            
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Remover';
+            deleteButton.onclick = function() {
+                list.removeChild(listItem);
+            };
+            listItem.appendChild(deleteButton);
+            
+            list.appendChild(listItem);
+            taskInput.value = "";
+        } else {
+            alert('Por favor, digite uma tarefa.');
+        }
+    }
+</script>
+
+</body>
+</html>
